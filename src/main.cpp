@@ -1,4 +1,6 @@
+#include <memory>
 #include "raylib.h"
+#include "../include/app.hpp"
 
 #define MAX_BUILDINGS 100
 
@@ -71,7 +73,8 @@ int main(void) {
     const int screenWidth = 800;
     const int screenHeight = 450;
 
-    InitWindow(screenWidth, screenHeight, "Ordained v0.1.0");
+    std::shared_ptr<App> app = std::make_shared<App>(
+            screenWidth, screenHeight, "Ordained");
 
     Vector2 ballPosition = {
         (float)screenWidth/2,
@@ -96,7 +99,8 @@ int main(void) {
         buildColors[i] = (Color){
             GetRandomValue(200, 240),
             GetRandomValue(200, 240),
-            GetRandomValue(200, 240),
+            GetRandomValue(200, 250),
+            255 
         };
 
     }
@@ -114,11 +118,7 @@ int main(void) {
         // check_user_mouse(ballPosition, ballColor);
         move_player(player, camera);
 
-        BeginDrawing();
-
-            ClearBackground(RAYWHITE);
-
-            BeginMode2D(camera);
+        app->draw(camera);
                 DrawRectangle(-6000, 320, 13000, 8000, DARKGRAY);
                 for (int i = 0; i < MAX_BUILDINGS; i++) {
                     DrawRectangleRec(
@@ -145,7 +145,7 @@ int main(void) {
 
             DrawText(
                     "Ordained the game for real this time",
-                    640, 10, 20, RED);
+                    320, 10, 20, RED);
             DrawRectangle(0, 0, screenWidth, 5, RED);
             DrawRectangle(0, 5, 5, screenHeight, RED);
             DrawRectangle(screenWidth - 5, 5, 5, screenHeight - 10, RED);
@@ -154,7 +154,7 @@ int main(void) {
             DrawRectangle(10, 10, 250, 113, Fade(RED, 0.5f));
             DrawRectangleLines(10, 10, 250, 113, BLUE);
 
-        EndDrawing();
+            app->done_drawing();
     }
 
     CloseWindow();

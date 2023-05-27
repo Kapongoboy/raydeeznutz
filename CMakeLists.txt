@@ -21,9 +21,11 @@ set(RAYLIB_LIBRARIES
 # Add the Raylib include directory
 include_directories(${RAYLIB_INCLUDE_DIR})
 
+
 # Add your source files
 set(SOURCES
     src/main.cpp
+    include/app.hpp
     # Add any additional source files here
 )
 
