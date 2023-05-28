@@ -73,7 +73,7 @@ int main(void) {
     const int screenWidth = 800;
     const int screenHeight = 450;
 
-    std::shared_ptr<App> app = std::make_shared<App>(
+    std::unique_ptr<App> app = std::make_unique<App>(
             screenWidth, screenHeight, "Ordained");
 
     Vector2 ballPosition = {
