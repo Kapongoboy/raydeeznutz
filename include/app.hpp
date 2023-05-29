@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include <string>
 #include "raylib.h"
 
@@ -18,6 +19,7 @@ public:
 
     ~App() {
         CloseWindow();
+        std::cout << "App memory free" << "\n";
     }
     void check_input(Vector2 &position);
 
