@@ -26,6 +26,7 @@ include_directories(${RAYLIB_INCLUDE_DIR})
 set(SOURCES
     src/main.cpp
     include/app.hpp
+    include/environment.hpp
     # Add any additional source files here
 )
 
