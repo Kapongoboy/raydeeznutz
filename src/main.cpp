@@ -1,6 +1,7 @@
 #include <memory>
 #include "raylib.h"
 #include "../include/app.hpp"
+#include "../include/environment.hpp"
 
 #define MAX_BUILDINGS 100
 
@@ -83,27 +84,13 @@ int main(void) {
 
     Color ballColor = DARKBLUE;
     Rectangle player = {400, 280, 40, 40};
-    Rectangle buildings[MAX_BUILDINGS] = { 0 };
-    Color buildColors[MAX_BUILDINGS] = {0};
 
     int spacing = 0;
     
-    for (int i = 0; i < MAX_BUILDINGS; i++) {
-        buildings[i].width = (float)GetRandomValue(50, 200);
-        buildings[i].height = (float)GetRandomValue(100, 800);
-        buildings[i].y = screenHeight - 130.0f - buildings[i].height;
-        buildings[i].x = -6000.0f + spacing;
-
-        spacing += (int)buildings[i].width;
-
-        buildColors[i] = (Color){
-            GetRandomValue(200, 240),
-            GetRandomValue(200, 240),
-            GetRandomValue(200, 250),
-            255 
-        };
-
-    }
+    std::shared_ptr<Buildings> buildings = std::make_shared<Buildings>(
+            screenHeight,
+            screenWidth
+    );
 
     Camera2D camera = {0};
     camera.target = (Vector2){player.x + 20.0f, player.y + 20.0f};
@@ -119,13 +106,7 @@ int main(void) {
         move_player(player, camera);
 
         app->draw(camera);
-                DrawRectangle(-6000, 320, 13000, 8000, DARKGRAY);
-                for (int i = 0; i < MAX_BUILDINGS; i++) {
-                    DrawRectangleRec(
-                            buildings[i],
-                            buildColors[i]
-                            );
-                }
+                buildings->draw_buildings();
                 DrawRectangleRec(player, RED);
                 DrawLine(
                         (int)camera.target.x,
@@ -156,8 +137,6 @@ int main(void) {
 
             app->done_drawing();
     }
-
-    CloseWindow();
 
     return 0;
 }
