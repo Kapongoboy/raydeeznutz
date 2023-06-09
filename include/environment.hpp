@@ -20,9 +20,9 @@ struct Buildings {
                 spacing += (int)buildings[i].width;
 
                 building_colors[i] = (Color){
-                    GetRandomValue(200, 240),
-                    GetRandomValue(200, 240),
-                    GetRandomValue(200, 250),
+                    static_cast<unsigned char>(GetRandomValue(200, 240)),
+                    static_cast<unsigned char>(GetRandomValue(200, 240)),
+                    static_cast<unsigned char>(GetRandomValue(200, 240)),
                     255 
                 };
 
