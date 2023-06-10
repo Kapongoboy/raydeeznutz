@@ -2,6 +2,8 @@ pub mod environment;
 pub mod character;
 
 use raylib::prelude::*;
+use crate::config::Config;
+
 const MAX_BUILDINGS: usize = 100;
 
 pub struct Building {
@@ -23,7 +25,12 @@ impl Building {
 
 
 
-pub fn run(rl: &mut RaylibHandle, thread: &RaylibThread) {
+pub fn run(config: Config) {
+    let (mut rl, thread) = raylib::init()
+        .size(config.width, config.height)
+        .title(&config.title)
+        .build();
+
     while !rl.window_should_close() {
         let mut d = rl.begin_drawing(&thread);
         d.clear_background(Color::RAYWHITE);
